@@ -12,4 +12,15 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: false
+     })
+     .browserSync({
+         proxy: 'blog.test',
+         notify: false,
+     })
+     .disableNotifications()
+     .sourceMaps()
+     .copy('node_modules/@fortawesome/fontawesome-pro/css/all.min.css', 'public/css/fontawesome-all.min.css')
+     .copyDirectory('node_modules/@fortawesome/fontawesome-pro/webfonts', 'public/webfonts');
