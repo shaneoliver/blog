@@ -9,6 +9,9 @@
 
                 <p>{{ $article->content }}</p>
             </article>
+            @can('update', $article)
+                <a href="{{ route('articles.edit', $article) }}"><span class="fad fa-edit mr-2"></span>Edit Article</a>
+            @endcan
         </div>
     </div>
 </div>

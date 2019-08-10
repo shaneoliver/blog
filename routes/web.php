@@ -17,4 +17,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminController@index')->name('admin');
 
 Route::get('/articles', 'ArticleController@index')->name('articles.index');
+Route::get('/articles/create', 'ArticleController@create')->name('articles.create');
+Route::post('/articles', 'ArticleController@store')->name('articles.store');
 Route::get('/articles/{article}', 'ArticleController@show')->name('articles.show');
+Route::get('/articles/{article}/edit', 'ArticleController@edit')->name('articles.edit');
+Route::put('/articles/{article}', 'ArticleController@update')->name('articles.update');
+Route::delete('/articles/{article}', 'ArticleController@destroy')->name('articles.destroy');

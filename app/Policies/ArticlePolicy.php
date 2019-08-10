@@ -46,7 +46,7 @@ class ArticlePolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->admin;
     }
 
     /**
@@ -58,7 +58,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        //
+        return $user->id === $article->author;
     }
 
     /**
@@ -70,7 +70,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        //
+        return $user->id === $article->author;
     }
 
     /**

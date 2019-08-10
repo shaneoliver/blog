@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -25,7 +26,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Article::class);
+        return view('articles.create');
     }
 
     /**
@@ -36,7 +38,19 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $article = Article::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => Auth::user()->id,
+            'published_at' => \Carbon\Carbon::now(),
+        ]);
+
+        return redirect(route('articles.show', $article->id));      
     }
 
     /**
@@ -60,7 +74,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('articles.edit', compact('article'));
     }
 
     /**
@@ -72,7 +86,14 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $attributes = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $article->update($attributes);
+
+        return redirect(route('articles.show', $article->id));      
     }
 
     /**
@@ -83,6 +104,11 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        try {
+            $article->delete();
+            return redirect(route('articles.index'));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }
