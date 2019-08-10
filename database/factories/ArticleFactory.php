@@ -11,6 +11,8 @@ $factory->define(Article::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(),
         'content' => $faker->paragraph(10),
+        'slug' => $faker->slug(6),
+        'private' => false,
         'user_id' => factory(User::class)->create()->id,
         'published_at' => Carbon::now()->subWeeks(1),
     ];

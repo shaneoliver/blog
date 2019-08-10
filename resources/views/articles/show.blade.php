@@ -7,7 +7,7 @@
             <article>
                 <h1>{{ $article->title }}</h1>
 
-                <p>{{ $article->content }}</p>
+                <p>{!! nl2br($article->content) !!}</p>
             </article>
             @can('update', $article)
                 <a href="{{ route('articles.edit', $article) }}"><span class="fad fa-edit mr-2"></span>Edit Article</a>

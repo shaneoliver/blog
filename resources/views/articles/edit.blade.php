@@ -29,7 +29,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Save Article</button>
-                
+                <a class="btn btn-link" href="{{ route('articles.show', $article) }}">cancel</a>
             </form>
         </div>
         <div class="col-12 col-md-2 col-lg-4">

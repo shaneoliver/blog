@@ -17,6 +17,10 @@ class CreateArticlesTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('content');
+            $table->text('excerpt')->nullable();
+            $table->string('slug')->unique();
+            $table->boolean('private')->default(false);
+            $table->string('password')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::paginate();
+        $articles = Article::latest()->paginate();
         return view('articles.index', compact('articles'));
     }
 
@@ -41,15 +41,27 @@ class ArticleController extends Controller
         $attributes = $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'excerpt' => 'nullable|max:255',
+            'slug' => 'required|unique:articles,slug',
+            'password' => 'nullable',
+            'private' => 'nullable',
         ]);
 
         $article = Article::create([
             'title' => $request->title,
             'content' => $request->content,
+            'excerpt' => $request->excerpt,
             'user_id' => Auth::user()->id,
+            'slug' => $request->slug,
+            'password' => $request->password,
+            'private' => $request->private,
             'published_at' => \Carbon\Carbon::now(),
         ]);
-
+        
+        if($request->wantsJson()) {
+            return $article;
+        }
+        
         return redirect(route('articles.show', $article->id));      
     }
 
@@ -89,6 +101,9 @@ class ArticleController extends Controller
         $attributes = $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'slug' => 'required|unique:articles,slug',
+            'password' => 'nullable',
+            'private' => 'nullable',
         ]);
 
         $article->update($attributes);

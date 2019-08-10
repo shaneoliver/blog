@@ -26,6 +26,14 @@ class Article extends Model
     }
 
     /**
+     * Get the model by the slug instead of the id
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';   
+    }
+
+    /**
      * The author of the article
      */
     public function author()

@@ -1,9 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-12 col-md-10 col-lg-8">
+        <div class="col-12">
+            <article-builder></article-builder>
+        </div>
+    </div>
+</div>
+{{-- <div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8">
             <form method="POST" action="{{ route('articles.store') }}">
                 @csrf
 
@@ -31,6 +38,10 @@
                 
             </form>
         </div>
+
+        <div class="col-12 col-md-4">
+            somehting
+        </div>
     </div>
-</div>
+</div> --}}
 @endsection
